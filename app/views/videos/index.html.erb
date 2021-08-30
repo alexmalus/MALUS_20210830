@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<div class="heading text-center font-bold text-2xl m-5">Videos</div>
+
+<div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <div>
+          <iframe src=""></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="holder mx-auto w-10/12 grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
+  <% @videos.each do |video| %>
+    <div id="<%= video.id %>_thumb" data-toggle="modal" data-target="#videoModal" data-theVideo="<%= video.file[:original].url %>">
+      <div class="each mb-10 m-2 shadow-lg border-gray-800 bg-gray-100 relative">
+        <%= image_tag(video.file[:large_thumb].url, class: "w-full", title: video.title, alt: video.title) %>
+        <div class="badge absolute top-0 right-0 bg-blue-500 m-1 text-gray-200 p-1 px-2 text-xs font-bold rounded"><%= video.category_name %></div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  //FUNCTION TO GET AND AUTO PLAY YOUTUBE VIDEO FROM DATATAG
+  function autoPlayVideoModal(){
+    var trigger = $("div[id$='_thumb']");
+
+    trigger.click(function() {
+      var theModal = $(this).data( "target" ),
+        videoSRC = $(this).attr( "data-theVideo" ),
+        videoSRCauto = videoSRC+"?autoplay=1" ;
+
+      $(theModal+' iframe').attr('src', videoSRCauto);
+      $(theModal+' button.close').click(function () {
+        $(theModal+' iframe').removeAttr('src');
+      });
+    });
+  }
+
+  $(document).ready(function(){
+    autoPlayVideoModal();
+  });
+</script>

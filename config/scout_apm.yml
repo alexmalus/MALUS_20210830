@@ -1,0 +1,11 @@
+defaults: &defaults
+  name: <%= ENV['SCOUT_NAME'] %>
+  key: <%= ENV['SCOUT_KEY'] %>
+  monitor: <%= true if ENV['SCOUT_MONITOR'] %>
+
+development:
+  <<: *defaults
+test:
+  <<: *defaults
+production:
+  <<: *defaults
