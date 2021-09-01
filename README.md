@@ -1,4 +1,4 @@
-# Job seeker
+# Watcher
 
 This repository contains the code for a demo application that grants users the ability to store, then play uploaded videos.
 
